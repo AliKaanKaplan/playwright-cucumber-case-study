@@ -1,0 +1,142 @@
+name: E2E Tests
+
+# The E2E suite runs against a live third-party site (e-bebek). Running it on
+# every push would turn the badge red on temporary site-side glitches.
+# That is why it only runs nightly and on manual dispatch - a common practice
+# for E2E suites that run against a live site.
+on:
+  schedule:
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+    inputs:
+      browser:
+        description: 'Tarayıcı (parametre-güdümlü koşum)'
+        type: choice
+        options: [chromium, firefox, webkit]
+        default: chromium
+
+# Prevent overlapping runs from breaking report publishing.
+concurrency:
+  group: e2e-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write # to publish the report to gh-pages
+  checks: write # to post the test summary on the PR
+
+jobs:
+  test:
+    name: Cucumber suite
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    container:
+      image: mcr.microsoft.com/playwright:v1.61.1-jammy
+    # Credentials come from GitHub Secrets; .env.test is NOT committed (.gitignore).
+    # If the secrets are not defined, config.hasCredentials becomes false and the
+    # @auth scenarios are automatically marked "skipped" in features/support/hooks.js.
+    env:
+      HEADLESS: "true"
+      PARALLEL_WORKERS: "2"
+      BROWSER: ${{ inputs.browser || 'chromium' }}
+      BASE_URL: https://www.e-bebek.com
+      API_BASE_URL: https://api2.e-bebek.com
+      EBEBEK_EMAIL: ${{ secrets.EBEBEK_EMAIL }}
+      EBEBEK_PASSWORD: ${{ secrets.EBEBEK_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests (headless, 2 workers)
+        run: npm test
+
+      # Raw results: the report is generated in the next job.
+      - name: Upload raw results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results
+          path: reports/allure-results
+          retention-days: 14
+
+      # Traces are only produced for failed scenarios (features/support/hooks.js),
+      # so the folder may never be created.
+      - name: Upload failure traces
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-traces
+          path: reports/traces
+          if-no-files-found: ignore
+          retention-days: 14
+
+      # Builds a run summary from the JUnit XML: which scenario failed is visible
+      # directly on the Actions run page without opening the report. If a PR
+      # trigger is added, the same summary also lands on the PR as an annotation.
+      - name: Publish test summary
+        if: always()
+        uses: dorny/test-reporter@v1
+        with:
+          name: Cucumber results
+          path: reports/junit/results.xml
+          reporter: java-junit
+          fail-on-error: false
+
+  report:
+    name: Publish Allure report
+    needs: test
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      # allure-commandline requires Java; the Playwright image has no Java,
+      # so report generation runs in a separate job.
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download raw results
+        uses: actions/download-artifact@v4
+        with:
+          name: allure-results
+          path: reports/allure-results
+
+      # To keep the trend and "Retries" charts populated, we copy the previous
+      # report's history folder into the new results. Without this, every report
+      # starts with no history. On the first run the gh-pages branch does not
+      # exist yet; the step is skipped silently.
+      - name: Restore Allure history
+        continue-on-error: true
+        run: |
+          git fetch origin gh-pages --depth=1 || exit 0
+          git checkout origin/gh-pages -- history || exit 0
+          mkdir -p reports/allure-results/history
+          cp -r history/. reports/allure-results/history/
+
+      - name: Generate report
+        run: npm run report:generate
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: reports/allure-report
+          publish_branch: gh-pages

@@ -1,0 +1,14 @@
+node_modules
+allure-results
+allure-report
+reports
+debug
+fixedBugs
+.git
+*.pdf
+
+# Environment files carry credentials and must never end up in the image.
+# Values are passed at run time with `docker run -e ...`.
+.env
+.env.*
+!.env.example

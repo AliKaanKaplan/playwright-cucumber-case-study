@@ -1,0 +1,14 @@
+node_modules/
+reports/
+debug/
+fixedBugs/
+*.log
+
+# Environment files: they contain credentials and are never committed.
+# Only .env.example is tracked, as a template.
+.env
+.env.*
+!.env.example
+
+.idea/
+.DS_Store

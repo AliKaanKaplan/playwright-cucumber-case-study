@@ -1,0 +1,37 @@
+{
+  "name": "ebebek-e2e",
+  "version": "1.0.0",
+  "description": "ErikLabs QA Case Study - e-bebek web test otomasyonu (JavaScript + Playwright + Cucumber + Allure)",
+  "scripts": {
+    "clean": "rimraf reports",
+    "test": "npm run clean && cucumber-js",
+    "test:demo": "cross-env ENV=demo npm test",
+    "test:smoke": "npm run clean && cucumber-js --tags @smoke",
+    "test:regression": "npm run clean && cucumber-js --tags @regression",
+    "test:negative": "npm run clean && cucumber-js --tags @negative",
+    "test:noauth": "npm run clean && cucumber-js --tags \"not @auth\"",
+    "test:chromium": "cross-env BROWSER=chromium npm test",
+    "test:firefox": "cross-env BROWSER=firefox npm test",
+    "test:webkit": "cross-env BROWSER=webkit npm test",
+    "report:generate": "allure generate reports/allure-results --clean -o reports/allure-report",
+    "report:open": "allure open reports/allure-report",
+    "report": "npm run report:generate && npm run report:open"
+  },
+  "keywords": [
+    "playwright",
+    "cucumber",
+    "allure",
+    "e2e",
+    "pom"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@cucumber/cucumber": "^12.9.0",
+    "allure-commandline": "^2.43.0",
+    "allure-cucumberjs": "^3.10.2",
+    "cross-env": "^10.1.0",
+    "dotenv": "^17.4.2",
+    "playwright": "^1.61.1",
+    "rimraf": "^6.1.3"
+  }
+}
