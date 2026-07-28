@@ -1,0 +1,1 @@
+[{"values":["test"],"name":"environment"},{"values":["https://www.e-bebek.com"],"name":"base_url"},{"values":["chromium (Playwright)"],"name":"browser"},{"values":["true"],"name":"headless"},{"values":["2"],"name":"parallel_workers"},{"values":["linux"],"name":"os"},{"values":["v20.20.2"],"name":"node"}]

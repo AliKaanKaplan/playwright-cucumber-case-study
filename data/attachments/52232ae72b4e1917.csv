@@ -1,0 +1,5 @@
+case,tab,field,value,message
+invalid email format,email tab,email field,invalid-email,Geçerli bir e-posta adresi giriniz
+empty email field,email tab,email field,,Bu alan gereklidir.
+empty phone number,phone tab,phone field,,geçerli bir telefon numarası giriniz
+short phone number,phone tab,phone field,555,geçerli bir telefon numarası giriniz
