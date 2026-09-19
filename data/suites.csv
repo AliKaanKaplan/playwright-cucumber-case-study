@@ -1,37 +1,37 @@
 "DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
 "Verifies the shopping cart workflow: adding products, increasing quantity and
   removing an item, with the subtotal and total recalculated and checked
-  numerically after every change.","19426","S4 - Add to cart, increase quantity, remove and verify totals","","2026-09-18","broken","2026-09-18","","","",""
-"Verifies user authentication: successful login with valid credentials, plus
-  negative attempts (invalid email/phone format, empty required fields,
-  unregistered email, wrong password) each showing the expected outcome.","19300","S2 - Validation message is shown for invalid login attempt: empty phone number","","2026-09-18","broken","2026-09-18","","","",""
-"Verifies user authentication: successful login with valid credentials, plus
-  negative attempts (invalid email/phone format, empty required fields,
-  unregistered email, wrong password) each showing the expected outcome.","1","S2 - Login with wrong password is rejected","","2026-09-18","skipped","2026-09-18","","","",""
-"Verifies user authentication: successful login with valid credentials, plus
-  negative attempts (invalid email/phone format, empty required fields,
-  unregistered email, wrong password) each showing the expected outcome.","19393","S2 - Validation message is shown for invalid login attempt: short phone number","","2026-09-18","broken","2026-09-18","","","",""
-"Verifies user authentication: successful login with valid credentials, plus
-  negative attempts (invalid email/phone format, empty required fields,
-  unregistered email, wrong password) each showing the expected outcome.","5","S1 - Successful login with valid credentials","","2026-09-18","skipped","2026-09-18","","","",""
-"Verifies product search: a query that returns products related to the search
-  term, and a query that returns no real results.","19317","S3 - Search with results lists products related to the search term","","2026-09-18","broken","2026-09-18","","","",""
+  numerically after every change.","19586","S4 - Add to cart, increase quantity, remove and verify totals","","2026-09-19","broken","2026-09-19","","","",""
 "Verifies session continuity: a product added to the cart as a guest is
-  preserved after the user logs in.","1","S5 - Guest cart is preserved after login","","2026-09-18","skipped","2026-09-18","","","",""
+  preserved after the user logs in.","1","S5 - Guest cart is preserved after login","","2026-09-19","skipped","2026-09-19","","","",""
+"Verifies user authentication: successful login with valid credentials, plus
+  negative attempts (invalid email/phone format, empty required fields,
+  unregistered email, wrong password) each showing the expected outcome.","19582","S2 - Validation message is shown for invalid login attempt: invalid email format","","2026-09-19","broken","2026-09-19","","","",""
 "Verifies product search: a query that returns products related to the search
-  term, and a query that returns no real results.","19289","S3 - Search with no results does not list any real match","","2026-09-18","broken","2026-09-18","","","",""
+  term, and a query that returns no real results.","19306","S3 - Search with no results does not list any real match","","2026-09-19","broken","2026-09-19","","","",""
 "Verifies user authentication: successful login with valid credentials, plus
   negative attempts (invalid email/phone format, empty required fields,
-  unregistered email, wrong password) each showing the expected outcome.","19378","S2 - Unregistered email is redirected to the registration form","","2026-09-18","broken","2026-09-18","","","",""
-"Verifies logout: after signing out the session is truly terminated and a
-  page requiring authentication is no longer accessible (guest state).","1","S6 - Session is truly terminated after logout","","2026-09-18","skipped","2026-09-18","","","",""
+  unregistered email, wrong password) each showing the expected outcome.","19348","S2 - Validation message is shown for invalid login attempt: short phone number","","2026-09-19","broken","2026-09-19","","","",""
 "Verifies user authentication: successful login with valid credentials, plus
   negative attempts (invalid email/phone format, empty required fields,
-  unregistered email, wrong password) each showing the expected outcome.","19299","S2 - Validation message is shown for invalid login attempt: empty email field","","2026-09-18","broken","2026-09-18","","","",""
+  unregistered email, wrong password) each showing the expected outcome.","11","S1 - Successful login with valid credentials","","2026-09-19","skipped","2026-09-19","","","",""
+"Verifies user authentication: successful login with valid credentials, plus
+  negative attempts (invalid email/phone format, empty required fields,
+  unregistered email, wrong password) each showing the expected outcome.","19332","S2 - Validation message is shown for invalid login attempt: empty email field","","2026-09-19","broken","2026-09-19","","","",""
 "Demonstrates the API + UI hybrid (B1): authentication is established via the
   OAuth password-grant API and injected as browser storage state (spartacus auth
   token), so no slow UI login is needed. Verification and logout happen in the UI —
-  proving the API-injected session behaves like a real one.","10","B1 - Session established via API is recognised and endable in the UI","","2026-09-18","skipped","2026-09-18","","","",""
+  proving the API-injected session behaves like a real one.","6","B1 - Session established via API is recognised and endable in the UI","","2026-09-19","skipped","2026-09-19","","","",""
 "Verifies user authentication: successful login with valid credentials, plus
   negative attempts (invalid email/phone format, empty required fields,
-  unregistered email, wrong password) each showing the expected outcome.","19422","S2 - Validation message is shown for invalid login attempt: invalid email format","","2026-09-18","broken","2026-09-18","","","",""
+  unregistered email, wrong password) each showing the expected outcome.","0","S2 - Login with wrong password is rejected","","2026-09-19","skipped","2026-09-19","","","",""
+"Verifies logout: after signing out the session is truly terminated and a
+  page requiring authentication is no longer accessible (guest state).","2","S6 - Session is truly terminated after logout","","2026-09-19","skipped","2026-09-19","","","",""
+"Verifies user authentication: successful login with valid credentials, plus
+  negative attempts (invalid email/phone format, empty required fields,
+  unregistered email, wrong password) each showing the expected outcome.","19328","S2 - Validation message is shown for invalid login attempt: empty phone number","","2026-09-19","broken","2026-09-19","","","",""
+"Verifies user authentication: successful login with valid credentials, plus
+  negative attempts (invalid email/phone format, empty required fields,
+  unregistered email, wrong password) each showing the expected outcome.","19348","S2 - Unregistered email is redirected to the registration form","","2026-09-19","broken","2026-09-19","","","",""
+"Verifies product search: a query that returns products related to the search
+  term, and a query that returns no real results.","19329","S3 - Search with results lists products related to the search term","","2026-09-19","broken","2026-09-19","","","",""
